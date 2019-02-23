@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace FinerGames.PitchDetector
 {
@@ -13,7 +14,7 @@ namespace FinerGames.PitchDetector
 
             var query = new EntityArchetypeQuery()
             {
-                All = new ComponentType[] { typeof(MicrophoneInput), typeof(AudioSource), },
+                All = new ComponentType[] { typeof(MicrophoneInput), },
             };
             microphoneInputs = GetComponentGroup(query);
         }
@@ -31,6 +32,10 @@ namespace FinerGames.PitchDetector
                     input.Source.loop = true;
                     input.Source.clip = Microphone.Start(input.DeviceName, true, 1, input.SampleRate);
                     input.Source.Play();
+
+                    //int dspBufferSize, dspNumBuffers;
+                    //AudioSettings.GetDSPBufferSize(out dspBufferSize, out dspNumBuffers);
+                    //input.Source.timeSamples = (Microphone.GetPosition(input.DeviceName) + AudioSettings.outputSampleRate - 3 * dspBufferSize * dspNumBuffers) % AudioSettings.outputSampleRate;
                 }
                 else if (!input.IsRecording && Microphone.IsRecording(input.DeviceName))
                 {
@@ -40,11 +45,5 @@ namespace FinerGames.PitchDetector
                 //}, microphoneInputs);
             });
         }
-
-        //void OnGUI()
-        //{
-        //    if (GUILayout.Button(isRecording ? "Disable microphone" : "Enable microphone"))
-        //        isRecording = !isRecording;
-        //}
     }
 }

@@ -65,6 +65,7 @@ namespace Pitch
         /// </summary>
         public double SampleRate
         {
+            get { return m_sampleRate; }
             set
             {
                 if (m_sampleRate == value)
