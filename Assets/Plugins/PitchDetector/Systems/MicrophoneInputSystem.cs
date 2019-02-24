@@ -42,7 +42,7 @@ namespace FinerGames.PitchDetector
                     input.Source.Stop();
                     Microphone.End(input.DeviceName);
                 }
-                //}, microphoneInputs);
+            //}, microphoneInputs);
             });
         }
     }
